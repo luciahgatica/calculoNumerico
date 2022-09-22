@@ -151,14 +151,33 @@ print(f"{suma_coordenadas(Gn)} vs {Qn}")
 
 #%% 9
 
-N = np.arange(1,101)
-Tn = []
+N = np.arange(0,101)
 x = np.linspace(-13, -11, num = len(N))
+Tn = [np.e**(-12)]
 
 for n in N:
-    Ti = ((np.e)**(-12))*((x+12)**n)/(np.math.factorial(n)) 
-    Tn.append(Ti)
+    Ti = ((np.e)**(-12))*((x+12)**n)/(np.math.factorial(n))
+    Tn.append(Ti + Tn[n])
+    #print(Tn)
+    #plt.plot(x,Tn[n])
     
-suma_coordenadas(Tn)
+#suma_coordenadas(Tn)
 
-plt.plot(x,Tn)
+#mejor aproximacion de e⁻¹² con propiedades de límites
+
+M = 10000
+aprox_e = (1+1/M)**(-12*M)
+print(aprox_e)
+
+#%% 10.b
+
+def f(x):
+  return x**2
+
+h = 10**((np.arange(10,181,1)-190)/(10))
+
+for i in h:
+  dhfi = (f(1+i)-f(1))/i
+  print(f'la derivada discreta de con h = {i} vale {dhfi}')
+
+# los resultados son mas confiables para h entre 10^-15 y 10^-3
